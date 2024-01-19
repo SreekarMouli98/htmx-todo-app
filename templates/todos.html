@@ -1,0 +1,8 @@
+<div class="space-y-4 max-h-[30rem] overflow-y-auto">
+    {% include 'new-todo-placeholder.html' %}
+    {% for todo in todos %}
+        {% with todo=todo %}
+            {% include 'todo.html' %}
+        {% endwith %}
+    {% endfor %}
+</div>

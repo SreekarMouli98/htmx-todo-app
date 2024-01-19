@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="flex flex-col items-center justify-center min-h-screen py-2">
+      <div class="max-w-md w-full space-y-8">
+        <div>
+          <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Todo App
+          </h2>
+        </div>
+        <form
+          class="mt-8 space-y-6"
+          id="new-todo-form"
+          hx-post="/api/todo"
+          hx-target="#new-todo-placeholder"
+          hx-swap="outerHTML"
+        >
+          <div class="rounded-md shadow-sm -space-y-px">
+            <div>
+              <label for="todo" class="sr-only"> Todo </label>
+              <input
+                type="text"
+                class="h-10 bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                id="new-todo-input"
+                autocomplete="todo"
+                required=""
+                placeholder="New Todo"
+                name="title"
+              />
+            </div>
+          </div>
+          <div>
+            <button
+              class="items-center whitespace-nowrap ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              type="submit"
+            >
+              Add&nbsp;
+              <svg
+                class="fill-current text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                height="16"
+                width="14"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
+                />
+              </svg>
+            </button>
+          </div>
+        </form>
+        <div
+          hx-get="/api/todos"
+          hx-target="this"
+          hx-swap="outerHTML"
+          hx-trigger="load"
+        ></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    document.body.addEventListener("htmx:afterOnLoad", function () {
+      document.querySelector("#new-todo-input").value = "";
+    });
+  </script>
+</html>

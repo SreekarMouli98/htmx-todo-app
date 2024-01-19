@@ -1,0 +1,63 @@
+<div class="flex items-center space-x-4" id="todo-{{ todo.id }}">
+  <input
+    type="checkbox"
+    class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+    hx-put="/api/todo/{{ todo.id }}"
+    hx-target="#todo-{{ todo.id }}"
+    hx-swap="outerHTML"
+    {%
+    if
+    todo.completed
+    %}
+    checked
+    {%
+    endif
+    %}
+  />
+  <form
+    hx-put="/api/todo/{{ todo.id }}"
+    hx-target="#todo-{{ todo.id }}"
+    hx-swap="outerHTML"
+    class="flex w-full"
+  >
+    <input
+      class="flex-1 px-2 py-1 text-sm"
+      type="text"
+      name="title"
+      placeholder="Enter todo"
+      value="{{ todo.title }}"
+      autofocus
+    />
+    <button
+      class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 border-none"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="16"
+        width="14"
+        viewBox="0 0 448 512"
+      >
+        <path
+          d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 288a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
+        />
+      </svg>
+    </button>
+    <button
+      class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 border-none"
+      hx-get="/todo/{{ todo.id }}"
+      hx-target="#todo-{{ todo.id }}"
+      hx-swap="outerHTML"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="16"
+        width="16"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"
+        />
+      </svg>
+    </button>
+  </form>
+</div>
